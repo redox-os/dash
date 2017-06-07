@@ -46,7 +46,7 @@
  */
 
 #ifndef JOBS
-#define JOBS 1
+#define JOBS 0
 #endif
 
 #if JOBS

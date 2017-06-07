@@ -558,9 +558,9 @@ bash_group_member(gid_t gid)
 	if (gid == getgid() || gid == getegid())
 		return (1);
 
-	ngroups = getgroups(0, NULL);
-	group_array = stalloc(ngroups * sizeof(gid_t));
-	if ((getgroups(ngroups, group_array)) != ngroups)
+	//ngroups = getgroups(0, NULL);
+	//group_array = stalloc(ngroups * sizeof(gid_t));
+	//if ((getgroups(ngroups, group_array)) != ngroups)
 		return (0);
 
 	/* Search through the list looking for GID. */

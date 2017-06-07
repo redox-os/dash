@@ -145,7 +145,7 @@ INIT {
 
 	setvareq(defoptindvar, VTEXTFIXED);
 
-	fmtstr(ppid + 5, sizeof(ppid) - 5, "%ld", (long) getppid());
+	fmtstr(ppid + 5, sizeof(ppid) - 5, "%ld", 1);
 	setvareq(ppid, VTEXTFIXED);
 
 	p = lookupvar("PWD");

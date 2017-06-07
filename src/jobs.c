@@ -46,7 +46,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #endif
-#include <sys/ioctl.h>
+//#include <sys/ioctl.h>
 
 #include "shell.h"
 #if JOBS
@@ -1138,17 +1138,17 @@ waitproc(int block, int *status)
 
 	do {
 		gotsigchld = 0;
-		err = wait3(status, flags, NULL);
+		err = waitpid(-1, status, flags);
 		if (err || !block)
 			break;
 
 		block = 0;
 
 		sigfillset(&mask);
-		sigprocmask(SIG_SETMASK, &mask, &oldmask);
+		//sigprocmask(SIG_SETMASK, &mask, &oldmask);
 
-		while (!gotsigchld && !pendingsigs)
-			sigsuspend(&oldmask);
+		//while (!gotsigchld && !pendingsigs)
+		//	sigsuspend(&oldmask);
 
 		sigclearmask();
 	} while (gotsigchld);

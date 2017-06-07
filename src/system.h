@@ -36,9 +36,8 @@
 
 static inline void sigclearmask(void)
 {
-#ifdef HAVE_SIGSETMASK
+#if 0
 	sigsetmask(0);
-#else
 	sigset_t set;
 	sigemptyset(&set);
 	sigprocmask(SIG_SETMASK, &set, 0);
@@ -82,7 +81,7 @@ void *bsearch(const void *, const void *, size_t, size_t,
 	      int (*)(const void *, const void *));
 #endif
 
-#ifndef HAVE_KILLPG
+#if 0
 static inline int killpg(pid_t pid, int signal)
 {
 #ifdef DEBUG

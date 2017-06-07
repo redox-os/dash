@@ -52,7 +52,7 @@
 #include <sys/param.h>
 
 #ifndef JOBS
-#define JOBS 1
+#define JOBS 0
 #endif
 #ifndef BSD
 #define BSD 1

@@ -181,6 +181,7 @@ clear_traps(void)
 void
 setsignal(int signo)
 {
+#if 0
 	int action;
 	char *t, tsig;
 	struct sigaction act;
@@ -260,6 +261,7 @@ setsignal(int signo)
 	act.sa_flags = 0;
 	sigfillset(&act.sa_mask);
 	sigaction(signo, &act, 0);
+#endif
 }
 
 /*
