@@ -393,6 +393,8 @@ RESET {
 int
 savefd(int from, int ofd)
 {
+	return from; // FIXME
+/*
 	int newfd;
 	int err;
 
@@ -407,6 +409,7 @@ savefd(int from, int ofd)
 	}
 
 	return newfd;
+*/
 }
 
 
