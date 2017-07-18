@@ -390,15 +390,28 @@ RESET {
  * the original file dscriptor is not open.
  */
 
+int dup10(int fd) {
+	// XXX hack
+	int new_fd = dup(fd);
+	if (new_fd < 0)
+		return -1;
+	if (new_fd > 10)
+		return new_fd;
+	else {
+		int new_fd2 = dup10(new_fd);
+		close(new_fd);
+		return new_fd2;
+	}
+
+}
+
 int
 savefd(int from, int ofd)
 {
-	return from; // FIXME
-/*
 	int newfd;
 	int err;
 
-	newfd = fcntl(from, F_DUPFD, 10);
+	newfd = dup10(from);
 	err = newfd < 0 ? errno : 0;
 	if (err != EBADF) {
 		close(ofd);
@@ -409,7 +422,6 @@ savefd(int from, int ofd)
 	}
 
 	return newfd;
-*/
 }
 
 
