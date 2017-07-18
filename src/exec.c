@@ -295,7 +295,7 @@ find_command(char *name, struct cmdentry *entry, int act, const char *path)
 	struct builtincmd *bcmd;
 
 	/* If name contains a slash, don't use PATH or hash table */
-	if (strchr(name, '/') != NULL || strchr(name, ':') != NULL) {
+	if (strchr(name, '/') != NULL) {
 		entry->u.index = -1;
 		if (act & DO_ABS) {
 			while (stat64(name, &statb) < 0) {
