@@ -193,7 +193,7 @@ padvance(const char **path, const char *name)
 	if (*path == NULL)
 		return NULL;
 	start = *path;
-	for (p = start ; *p && *p != ':' && *p != '%' ; p++);
+	for (p = start ; *p && *p != ';' && *p != '%' ; p++);
 	len = p - start + strlen(name) + 2;	/* "2" is for '/' and '\0' */
 	while (stackblocksize() < len)
 		growstackblock();
@@ -207,9 +207,9 @@ padvance(const char **path, const char *name)
 	pathopt = NULL;
 	if (*p == '%') {
 		pathopt = ++p;
-		while (*p && *p != ':')  p++;
+		while (*p && *p != ';')  p++;
 	}
-	if (*p == ':')
+	if (*p == ';')
 		*path = p + 1;
 	else
 		*path = NULL;
@@ -530,8 +530,8 @@ changepath(const char *newval)
 	for (;;) {
 		if (*old != *new) {
 			firstchange = idx;
-			if ((*old == '\0' && *new == ':')
-			 || (*old == ':' && *new == '\0'))
+			if ((*old == '\0' && *new == ';')
+			 || (*old == ';' && *new == '\0'))
 				firstchange++;
 			old = new;	/* ignore subsequent differences */
 		}
@@ -539,7 +539,7 @@ changepath(const char *newval)
 			break;
 		if (*new == '%' && bltin < 0 && prefix(new + 1, "builtin"))
 			bltin = idx;
-		if (*new == ':') {
+		if (*new == ';') {
 			idx++;
 		}
 		new++, old++;

@@ -109,7 +109,7 @@ cdcmd(int argc, char **argv)
 	}
 	if (!dest)
 		dest = nullstr;
-	if (*dest == '/')
+	if (*dest == '/' || strchr(dest, ':'))
 		goto step6;
 	if (*dest == '.') {
 		c = dest[1];
@@ -210,19 +210,19 @@ updatepwd(const char *dir)
 
 	cdcomppath = sstrdup(dir);
 	STARTSTACKSTR(new);
-	if (*dir != '/') {
+	if (*dir != '/'  && !strchr(dir, ':')) {
 		if (curdir == nullstr)
 			return 0;
 		new = stputs(curdir, new);
 	}
 	new = makestrspace(strlen(dir) + 2, new);
 	lim = stackblock() + 1;
-	if (*dir != '/') {
+	if (*dir != '/' && !strchr(dir, ':')) {
 		if (new[-1] != '/')
 			USTPUTC('/', new);
 		if (new > lim && *lim == '/')
 			lim++;
-	} else {
+	} else if (*dir == '/') {
 		USTPUTC('/', new);
 		cdcomppath++;
 		if (dir[1] == '/' && dir[2] != '/') {
