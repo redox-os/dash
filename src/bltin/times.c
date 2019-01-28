@@ -13,6 +13,7 @@
 #include "system.h"
 
 int timescmd() {
+#if !defined(__redox__)
 	struct tms buf;
 	long int clk_tck = sysconf(_SC_CLK_TCK);
 
@@ -27,4 +28,7 @@ int timescmd() {
 	       (int) (buf.tms_cstime / clk_tck / 60),
 	       ((double) buf.tms_cstime) / clk_tck);
 	return 0;
+#else
+	return 1;
+#endif
 }
